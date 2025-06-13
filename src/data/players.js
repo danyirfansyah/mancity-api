@@ -19,25 +19,34 @@ let players = [
   }
 ];
 
-module.exports = {
+const defaultFoto = "https://example.com/default.jpg";
+
+const playerModel = {
   getAll: () => players,
+
   getById: (id) => players.find(p => p.id === id),
-  create: (newPlayer) => {
+
+  create: ({ nama, harga }) => {
     const player = {
       id: players.length > 0 ? Math.max(...players.map(p => p.id)) + 1 : 1,
-      ...newPlayer
+      nama,
+      harga,
+      foto: defaultFoto
     };
     players.push(player);
     return player;
   },
-  update: (id, updatedPlayer) => {
+
+  update: (id, { nama, harga }) => {
     const index = players.findIndex(p => p.id === id);
     if (index !== -1) {
-      players[index] = { ...players[index], ...updatedPlayer };
+      if (nama) players[index].nama = nama;
+      if (harga) players[index].harga = harga;
       return players[index];
     }
     return null;
   },
+
   delete: (id) => {
     const index = players.findIndex(p => p.id === id);
     if (index !== -1) {
@@ -46,3 +55,5 @@ module.exports = {
     return null;
   }
 };
+
+export default playerModel;

@@ -1,7 +1,8 @@
 import express from 'express';
-const app = express();
 import bodyParser from 'body-parser';
 import playerRoutes from './routes/playerRoutes.js';
+
+const app = express();
 
 // Middleware
 app.use(bodyParser.json());

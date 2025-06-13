@@ -1,4 +1,4 @@
-const playerModel = require('../data/players');
+import playerModel from '../data/players.js';
 
 const getAllPlayers = (req, res) => {
   try {
@@ -26,15 +26,16 @@ const getPlayerById = (req, res) => {
 
 const createPlayer = (req, res) => {
   try {
-    // Validasi sederhana
-    if (!req.body.nama || !req.body.posisi) {
+    const { nama, harga } = req.body;
+
+    if (!nama || !harga) {
       return res.status(400).json({
         success: false,
-        message: "Nama dan posisi wajib diisi"
+        message: "Nama dan harga wajib diisi"
       });
     }
 
-    const newPlayer = playerModel.create(req.body);
+    const newPlayer = playerModel.create({ nama, harga });
     res.status(201).json({ success: true, data: newPlayer });
   } catch (error) {
     res.status(500).json({ success: false, message: "Gagal menambah pemain" });
@@ -43,18 +44,27 @@ const createPlayer = (req, res) => {
 
 const updatePlayer = (req, res) => {
   try {
+    const { nama, harga } = req.body;
+
+    if (!nama || !harga) {
+      return res.status(400).json({
+        success: false,
+        message: "Nama dan harga wajib diisi"
+      });
+    }
+
     const updatedPlayer = playerModel.update(
       parseInt(req.params.id),
-      req.body
+      { nama, harga }
     );
-    
+
     if (!updatedPlayer) {
       return res.status(404).json({
         success: false,
         message: "Pemain tidak ditemukan"
       });
     }
-    
+
     res.json({ success: true, data: updatedPlayer });
   } catch (error) {
     res.status(500).json({ success: false, message: "Gagal update pemain" });
@@ -71,7 +81,7 @@ const deletePlayer = (req, res) => {
         message: "Pemain tidak ditemukan"
       });
     }
-    
+
     res.json({ 
       success: true, 
       data: deletedPlayer,
@@ -82,20 +92,7 @@ const deletePlayer = (req, res) => {
   }
 };
 
-const players = require('../data/players');
-
-exports.updatePlayer = (req, res) => {
-  const id = parseInt(req.params.id);
-  const updated = players.update(id, req.body);
-  if (updated) {
-    res.json(updated);
-  } else {
-    res.status(404).send({ message: 'Player not found' });
-  }
-};
-
-
-module.exports = {
+export default {
   getAllPlayers,
   getPlayerById,
   createPlayer,
