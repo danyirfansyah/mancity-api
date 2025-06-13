@@ -2,6 +2,7 @@
   "dependencies": {
     "express": "^5.1.0",
     "mysql2": "^3.14.1",
+    "serverless-http": "^3.2.0",
     "vercel": "^43.1.0"
   },
   "name": "mancity-api",
@@ -15,6 +16,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
   "description": ""
 }
+
