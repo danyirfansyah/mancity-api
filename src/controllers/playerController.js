@@ -24,23 +24,36 @@ export const getPlayerById = (req, res) => {
   }
 };
 
+// ================== KODE YANG DIPERBAIKI MULAI DARI SINI ==================
 export const createPlayer = (req, res) => {
   try {
     const { nama, harga } = req.body;
 
-    if (!nama || !harga) {
+    // 1. Validasi diperbarui untuk mengecek file
+    if (!nama || !harga || !req.file) {
       return res.status(400).json({
         success: false,
-        message: "Nama dan harga wajib diisi"
+        message: "Nama, harga, dan foto wajib diisi"
       });
     }
 
-    const newPlayer = playerModel.create({ nama, harga });
+    // 2. URL lengkap untuk foto dibuat dari informasi request
+    // Contoh: http://localhost:3000/uploads/1718284858169.jpg
+    const fotoUrl = `${req.protocol}://${req.get('host')}/${req.file.path.replace(/\\/g, "/")}`;
+
+    // 3. 'fotoUrl' dikirim ke model bersama 'nama' dan 'harga'
+    const newPlayer = playerModel.create({ nama, harga, foto: fotoUrl });
+    
     res.status(201).json({ success: true, data: newPlayer });
+
   } catch (error) {
+    // Menambahkan log error untuk mempermudah debugging di server
+    console.error("Error saat membuat pemain:", error);
     res.status(500).json({ success: false, message: "Gagal menambah pemain" });
   }
 };
+// ================== KODE YANG DIPERBAIKI SELESAI DI SINI ==================
+
 
 export const updatePlayer = (req, res) => {
   try {

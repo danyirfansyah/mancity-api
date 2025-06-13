@@ -24,16 +24,18 @@ const playerModel = {
 
   getById: (id) => players.find(p => p.id === id),
 
-  create: ({ nama, harga }) => {
+  // ================== KODE YANG DIPERBAIKI MULAI DARI SINI ==================
+  create: ({ nama, harga, foto }) => { // 1. Menerima 'foto' sebagai parameter
     const player = {
       id: players.length > 0 ? Math.max(...players.map(p => p.id)) + 1 : 1,
       nama,
-      harga,
-      foto: "https://example.com/default-avatar.jpg" 
+      harga: parseInt(harga), // 2. Mengonversi harga menjadi angka
+      foto: foto // 3. Menggunakan URL foto dari parameter, bukan hardcode
     };
     players.push(player);
     return player;
   },
+  // ================== KODE YANG DIPERBAIKI SELESAI DI SINI ==================
 
   update: (id, { nama, harga }) => {
     const index = players.findIndex(p => p.id === id);
