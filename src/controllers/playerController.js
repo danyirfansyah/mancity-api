@@ -1,6 +1,6 @@
 import playerModel from '../data/players.js';
 
-const getAllPlayers = (req, res) => {
+export const getAllPlayers = (req, res) => {
   try {
     const data = playerModel.getAll();
     res.json({ success: true, data });
@@ -9,7 +9,7 @@ const getAllPlayers = (req, res) => {
   }
 };
 
-const getPlayerById = (req, res) => {
+export const getPlayerById = (req, res) => {
   try {
     const player = playerModel.getById(parseInt(req.params.id));
     if (!player) {
@@ -24,7 +24,7 @@ const getPlayerById = (req, res) => {
   }
 };
 
-const createPlayer = (req, res) => {
+export const createPlayer = (req, res) => {
   try {
     const { nama, harga } = req.body;
 
@@ -42,7 +42,7 @@ const createPlayer = (req, res) => {
   }
 };
 
-const updatePlayer = (req, res) => {
+export const updatePlayer = (req, res) => {
   try {
     const { nama, harga } = req.body;
 
@@ -71,7 +71,7 @@ const updatePlayer = (req, res) => {
   }
 };
 
-const deletePlayer = (req, res) => {
+export const deletePlayer = (req, res) => {
   try {
     const deletedPlayer = playerModel.delete(parseInt(req.params.id));
     
@@ -90,12 +90,4 @@ const deletePlayer = (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: "Gagal menghapus pemain" });
   }
-};
-
-export default {
-  getAllPlayers,
-  getPlayerById,
-  createPlayer,
-  updatePlayer,
-  deletePlayer
 };
