@@ -5,10 +5,11 @@ import playerRoutes from '../src/routes/playerRoutes.js';
 const app = express();
 app.use(express.json());
 
-app.use('/api/players', playerRoutes);
-
+// Tambahkan ini untuk mengecek root
 app.get('/', (req, res) => {
-  res.send('API is running...');
+  res.send('API is running');
 });
+
+app.use('/api/players', playerRoutes);
 
 export const handler = serverless(app);
