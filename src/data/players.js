@@ -19,8 +19,6 @@ let players = [
   }
 ];
 
-const defaultFoto = "https://example.com/default.jpg";
-
 const playerModel = {
   getAll: () => players,
 
