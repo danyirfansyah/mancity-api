@@ -7,9 +7,9 @@ const router = express.Router();
 
 // Konfigurasi penyimpanan file foto
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Folder untuk menyimpan gambar
-  },
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); 
+  },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname)); // Misalnya: 1627388123.jpg
   }

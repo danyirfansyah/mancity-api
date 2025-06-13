@@ -29,7 +29,7 @@ const playerModel = {
       id: players.length > 0 ? Math.max(...players.map(p => p.id)) + 1 : 1,
       nama,
       harga,
-      foto: defaultFoto
+      foto: "https://example.com/default-avatar.jpg" 
     };
     players.push(player);
     return player;
