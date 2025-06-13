@@ -1,5 +1,5 @@
 import express from 'express';
-import playerController from '../controllers/playerController.js';
+import * as playerController from '../controllers/playerController.js';
 import multer from 'multer';
 import path from 'path';
 
